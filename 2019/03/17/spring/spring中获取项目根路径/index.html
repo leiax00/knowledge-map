@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="spring中： 方式1：12345678&amp;lt;!--用于获取webapp根路径，普通类中使用System.getProperty(&quot;tansungWeb.root&quot;)获取--&amp;gt;&amp;lt;context-param&amp;gt;  &amp;lt;param-name&amp;gt;webAppRootKey&amp;lt;/param-name&amp;gt;  &amp;lt;param-value&amp;gt;rootPath&amp;lt;/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/03/17/spring/spring中获取项目根路径/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="spring中： 方式1：12345678&amp;lt;!--用于获取webapp根路径，普通类中使用System.getProperty(&quot;tansungWeb.root&quot;)获取--&amp;gt;&amp;lt;context-param&amp;gt;  &amp;lt;param-name&amp;gt;webAppRootKey&amp;lt;/param-name&amp;gt;  &amp;lt;param-value&amp;gt;rootPath&amp;lt;/">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-17T04:27:09.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="spring中： 方式1：12345678&amp;lt;!--用于获取webapp根路径，普通类中使用System.getProperty(&quot;tansungWeb.root&quot;)获取--&amp;gt;&amp;lt;context-param&amp;gt;  &amp;lt;param-name&amp;gt;webAppRootKey&amp;lt;/param-name&amp;gt;  &amp;lt;param-value&amp;gt;rootPath&amp;lt;/">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-spring/spring中获取项目根路径" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/spring/spring中获取项目根路径/" class="article-date">
+  <time datetime="2019-03-17T05:43:02.825Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>spring中：</p>
+<p>方式1：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--用于获取webapp根路径，普通类中使用System.getProperty("tansungWeb.root")获取--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>webAppRootKey<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>rootPath<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.util.WebAppRootListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>以上监听添加在web.xml中，在任意java类中就可以通过注释的方式获取根路径了，<br>更常用场景：<br>用于第三方工具的配置文件中通过 ${baobaotao.root} 引用 Web 应用的根目录<br>比如log4j的配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">log4j.rootLogger=INFO,R </span><br><span class="line">log4j.appender.R=org.apache.log4j.RollingFileAppender </span><br><span class="line"># 指定日志文件的地址</span><br><span class="line">log4j.appender.R.File=$&#123;baobaotao.root&#125;/WEB-INF/logs/log4j.log </span><br><span class="line">log4j.appender.R.MaxFileSize=100KB </span><br><span class="line">log4j.appender.R.MaxBackupIndex=1 </span><br><span class="line">log4j.appender.R.layout.ConversionPattern=%d %5p [%t] (%F:%L) - %m%n</span><br></pre></td></tr></table></figure>
+<p>方式二：<br>    额，就是通过Servlet的方式获取，可通过context对象获取ServletContext,进一步获取路径；</p>
+<p>常用的获取各种路径的方式：<br>  一、用Jsp获取<br> 1、获取文件的绝对路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String file=&quot;文件&quot;;（例如：data.mdb）</span><br><span class="line">String path=application.getRealPath(file);</span><br></pre></td></tr></table></figure>
+<p>结果：<br>E:\java_web\workspace.metadata.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myWebsite\文件<br>2、获取文件的绝对路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String p2=request.getRequestURI();</span><br></pre></td></tr></table></figure>
+<p>结果：<br>E:\java_web\workspace.metadata.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myWebsite\文件<br>3、获取当前jsp页面的路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String p3=request.getContextPath();</span><br></pre></td></tr></table></figure>
+<p>结果：<br>/myWebsite/index.jsp</p>
+<p>4、获取当前项目的路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String p4=request.getServletPath();</span><br></pre></td></tr></table></figure>
+<p>结果：<br>/myWebsite</p>
+<p>二、用Java类获取<br>1、获取Eclipse路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String a1=System.getProperty(&quot;user.dir&quot;);</span><br></pre></td></tr></table></figure>
+<p>结果：<br>D:\StudySystem\JavaWeb\3-eclipse-jee-indigo-win32\eclipse</p>
+<p>2、获取当前的classpath路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String a2=类名.class.getResource(&quot;&quot;).toString();</span><br><span class="line">String a3=DBConnection.class.getResource(&quot;/&quot;).toString();</span><br><span class="line">String a4=DBConnection.class.getClassLoader().getResource(&quot;&quot;).toString();</span><br><span class="line">String t=Thread.currentThread().getContextClassLoader().getResource(&quot;&quot;).getPath();</span><br></pre></td></tr></table></figure>
+<p>打印出来分别是：<br>file:/E:/java_web/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/myWebsite/WEB-INF/classes/com/site/db/<br>file:/E:/java_web/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/myWebsite/WEB-INF/classes/<br>file:/E:/java_web/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/myWebsite/WEB-INF/classes/<br>/E:/java_web/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/myWebsite/WEB-INF/classes/</p>
+<p>3、获取文件的绝对路径<br>如果要获取WebContent目录下的文件绝对路径怎么办？可以用下面的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String t=Thread.currentThread().getContextClassLoader().getResource(&quot;&quot;).getPath(); </span><br><span class="line"> int num=t.indexOf(&quot;.metadata&quot;);</span><br><span class="line"> String path=t.substring(1,num).replace(&apos;/&apos;, &apos;\\&apos;)+&quot;项目名\\WebContent\\文件&quot;;</span><br></pre></td></tr></table></figure>
+<p>结果是：<br>E:\java_web\workspace\项目名\WebContent\文件</p>
+<p>三、用servlet获取</p>
+<p>1、获取项目的绝对路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getSession().getServletContext().getRealPath(&quot;&quot;)</span><br></pre></td></tr></table></figure>
+<p>结果：<br>E:\java_web\workspace.metadata.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myWebsite</p>
+<p>2、获取浏览器地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestURL()</span><br></pre></td></tr></table></figure>
+<p>结果：<br><a href="http://localhost:8080/myWebsite/QuestionServlet" target="_blank" rel="noopener">http://localhost:8080/myWebsite/QuestionServlet</a></p>
+<p>3、获取当前文件的绝对路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getSession().getServletContext().getRealPath(request.getRequestURI())</span><br></pre></td></tr></table></figure>
+<p>结果：<br>E:\java_web\workspace.metadata.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myWebsite\myWebsite\QuestionServlet</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/spring/spring中获取项目根路径/" data-id="cjtchv22d0005cwvzuzqmu29u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/17/python/函数/装饰器/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/17/spring/spring中获取项目根路径/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/函数/装饰器/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/函数/偏函数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/readme/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/linux/Ubuntu中创建idea快捷方式/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

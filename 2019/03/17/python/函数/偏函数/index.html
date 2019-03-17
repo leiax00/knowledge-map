@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="functools.partial 能够帮助创建一个偏函数； eg:  int()函数可以把字符串转换为整数，当仅传入字符串时，int()函数默认按十进制转换;123&amp;gt;    &amp;gt;&amp;gt;&amp;gt;int(&apos;12345&apos;)&amp;gt;    12345&amp;gt;    int()函数还提供额外的base参数，默认值为10。如果传入base参数，就可以做N进制的转换123&amp;gt;&amp;gt;    &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/03/17/python/函数/偏函数/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="functools.partial 能够帮助创建一个偏函数； eg:  int()函数可以把字符串转换为整数，当仅传入字符串时，int()函数默认按十进制转换;123&amp;gt;    &amp;gt;&amp;gt;&amp;gt;int(&apos;12345&apos;)&amp;gt;    12345&amp;gt;    int()函数还提供额外的base参数，默认值为10。如果传入base参数，就可以做N进制的转换123&amp;gt;&amp;gt;    &amp;">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-07T12:43:38.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="functools.partial 能够帮助创建一个偏函数； eg:  int()函数可以把字符串转换为整数，当仅传入字符串时，int()函数默认按十进制转换;123&amp;gt;    &amp;gt;&amp;gt;&amp;gt;int(&apos;12345&apos;)&amp;gt;    12345&amp;gt;    int()函数还提供额外的base参数，默认值为10。如果传入base参数，就可以做N进制的转换123&amp;gt;&amp;gt;    &amp;">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python/函数/偏函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/python/函数/偏函数/" class="article-date">
+  <time datetime="2019-03-17T05:43:02.817Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>functools.partial</em> 能够帮助创建一个偏函数；</p>
+<p>eg:</p>
+<blockquote>
+<p>int()函数可以把字符串转换为整数，当仅传入字符串时，int()函数默认按十进制转换;<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;    &gt;&gt;&gt;int(<span class="string">'12345'</span>)</span><br><span class="line">&gt;    <span class="number">12345</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>int()函数还提供额外的base参数，默认值为10。如果传入base参数，就可以做N进制的转换<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;    &gt;&gt;&gt;int(<span class="string">'12345'</span>, base=<span class="number">8</span>)</span><br><span class="line">&gt;&gt;    <span class="number">5349</span></span><br><span class="line">&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+<p>可通过 <em>functools.partial</em> 来定义一个偏函数，固定函数的某一参数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line">int2 = functools.partial(int, base=<span class="number">2</span>)</span><br><span class="line">int2(<span class="string">'1000000'</span>) <span class="comment">#64</span></span><br></pre></td></tr></table></figure></p>
+<p>创建偏函数时，实际上可以接收函数对象、*args和<strong>kw这3个参数，当传入：<br>　　int2 = functools.partial(int, base=2)<br>实际上固定了int()函数的关键字参数base，也就是：<br>　　int2(‘10010’)<br>相当于：<br>　　kw = { ‘base’: 2 }<br>　　int(‘10010’, </strong>kw)  </p>
+<p>当传入：<br>　　max2 = functools.partial(max, 10)<br>实际上会把10作为<em>args的一部分自动加到左边，也就是：<br>　　max2(5, 6, 7)<br>相当于：<br>　　args = (10, 5, 6, 7)<br>　　max(</em>args)<br>结果为10。  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/python/函数/偏函数/" data-id="cjtchv22l0008cwvzudvzudln" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/17/python/函数/装饰器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/17/python/readme/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/17/spring/spring中获取项目根路径/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/函数/装饰器/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/函数/偏函数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/readme/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/linux/Ubuntu中创建idea快捷方式/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

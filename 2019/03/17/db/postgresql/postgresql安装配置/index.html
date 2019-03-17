@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="postgresql安装配置 设置可远程访问:参见：参考链接  A. 配置文件设置  修改data中的postgresql.conf文件  1listen_addresses = &amp;apos;*&amp;apos;      # 监听所有IP  修改data中的pg_hba.conf文件  | 连接类型 | 数据库 | 用户 | 可访问IP | 验证方法 | |—|—|—|—|—| | host | al">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/03/17/db/postgresql/postgresql安装配置/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="postgresql安装配置 设置可远程访问:参见：参考链接  A. 配置文件设置  修改data中的postgresql.conf文件  1listen_addresses = &amp;apos;*&amp;apos;      # 监听所有IP  修改data中的pg_hba.conf文件  | 连接类型 | 数据库 | 用户 | 可访问IP | 验证方法 | |—|—|—|—|—| | host | al">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-17T04:18:08.117Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="postgresql安装配置 设置可远程访问:参见：参考链接  A. 配置文件设置  修改data中的postgresql.conf文件  1listen_addresses = &amp;apos;*&amp;apos;      # 监听所有IP  修改data中的pg_hba.conf文件  | 连接类型 | 数据库 | 用户 | 可访问IP | 验证方法 | |—|—|—|—|—| | host | al">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-db/postgresql/postgresql安装配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/db/postgresql/postgresql安装配置/" class="article-date">
+  <time datetime="2019-03-17T05:43:02.802Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="postgresql安装配置"><a href="#postgresql安装配置" class="headerlink" title="postgresql安装配置"></a>postgresql安装配置</h1><blockquote>
+<p>设置可远程访问:参见：<a href="https://my.oschina.net/liuyuanyuangogo/blog/497239" target="_blank" rel="noopener">参考链接</a></p>
+</blockquote>
+<p><strong>A. 配置文件设置</strong></p>
+<ol>
+<li><p>修改data中的<code>postgresql.conf</code>文件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses = &apos;*&apos;      # 监听所有IP</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改data中的<code>pg_hba.conf</code>文件<br></p>
+<p> | 连接类型 | 数据库 | 用户 | 可访问IP | 验证方法 |<br> |—|—|—|—|—|<br> | host | all |all|0.0.0.0/0|md5|<br> | host | all |all|::/0|md5|</p>
+<blockquote>
+<p>IP小知识：<br><br>   172.20.143.89/32 ————- 表示一个主机，<br><br>   172.20.143.0/24  ————— 表示一个小子网（172.20.143.0-172.20.143.255），<br><br>   10.6.0.0/16 ——————– 表示一个大子网(10.6.0.0-10.6.255.255)。<br><br>   0.0.0.0/0 ———————- 代表所有IPv4地址，<br><br>   ::/0 ————————— 代表所有IPv6地址。<br><br>声明单个主机，给 IPv4 地址声明 CIDR 掩码 32 ，给 IPv6 地址声明 128 。 不要在地址中省略结尾的 0 。<br><br>   ident —— 是Linux下PostgreSQL默认的local认证方式，能正确登录环境就能免密使用数据库；<br><br>   md5 ——- 密码是以md5形式传送给数据库，较安全，且不需建立同名的操作系统用户；<br><br>   password – 是以明文密码传送给数据库，建议不要在生产环境中使用；<br><br>   trust ——— 是只要知道数据库用户名就不需要密码或ident就能登录；<br><br>   reject ——– 是拒绝认证。</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>B. linux默认安装下各个路径</strong></p>
+<blockquote>
+<p>参见: <a href="https://www.cnblogs.com/zhangpengshou/p/5464610.html" target="_blank" rel="noopener">参考链接</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/postgresql/9.4/main/postgresql.conf</span><br><span class="line">/etc/postgresql/9.4/main/pg_hba.conf</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p><br></p>
+<p><strong>C. psql常用命令</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sudo -u postgres psql</td>
+<td>跨用户登录数据库</td>
+</tr>
+<tr>
+<td>psql -U postgres -h 127.0.0.1</td>
+<td>postgres用户登录数据库，远程登录方式</td>
+</tr>
+<tr>
+<td>show server_version;</td>
+<td>查看pg版本</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/db/postgresql/postgresql安装配置/" data-id="cjtchv22k0007cwvzydrohujd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/17/linux/Linux常用命令汇总/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/17/db/oracle/常见oracle问题及解决方案/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/17/spring/spring中获取项目根路径/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/函数/装饰器/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/函数/偏函数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/readme/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/linux/Ubuntu中创建idea快捷方式/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

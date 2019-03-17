@@ -7,13 +7,17 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="@[toc] 连接数设置、字符集、端口监听、日期格式  折叠源码1234567891011121314151617181920212223242526271. 用sys登录sql plus:usename: sys as sysdbapassword: ****2. 查看最大连接数： select value from V$parameter where name=&apos;processes&apos;;3. 查">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/03/17/db/oracle/常见oracle问题及解决方案/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="@[toc] 连接数设置、字符集、端口监听、日期格式  折叠源码1234567891011121314151617181920212223242526271. 用sys登录sql plus:usename: sys as sysdbapassword: ****2. 查看最大连接数： select value from V$parameter where name=&apos;processes&apos;;3. 查">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-17T04:23:40.896Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="@[toc] 连接数设置、字符集、端口监听、日期格式  折叠源码1234567891011121314151617181920212223242526271. 用sys登录sql plus:usename: sys as sysdbapassword: ****2. 查看最大连接数： select value from V$parameter where name=&apos;processes&apos;;3. 查">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,395 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-spring/spring中获取项目根路径" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/spring/spring中获取项目根路径/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.825Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>spring中：</p>
-<p>方式1：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--用于获取webapp根路径，普通类中使用System.getProperty("tansungWeb.root")获取--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-name</span>&gt;</span>webAppRootKey<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">param-value</span>&gt;</span>rootPath<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">listener</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">listener-class</span>&gt;</span>org.springframework.web.util.WebAppRootListener<span class="tag">&lt;/<span class="name">listener-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">listener</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>以上监听添加在web.xml中，在任意java类中就可以通过注释的方式获取根路径了，<br>更常用场景：<br>用于第三方工具的配置文件中通过 ${baobaotao.root} 引用 Web 应用的根目录<br>比如log4j的配置文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">log4j.rootLogger=INFO,R </span><br><span class="line">log4j.appender.R=org.apache.log4j.RollingFileAppender </span><br><span class="line"># 指定日志文件的地址</span><br><span class="line">log4j.appender.R.File=$&#123;baobaotao.root&#125;/WEB-INF/logs/log4j.log </span><br><span class="line">log4j.appender.R.MaxFileSize=100KB </span><br><span class="line">log4j.appender.R.MaxBackupIndex=1 </span><br><span class="line">log4j.appender.R.layout.ConversionPattern=%d %5p [%t] (%F:%L) - %m%n</span><br></pre></td></tr></table></figure>
-<p>方式二：<br>    额，就是通过Servlet的方式获取，可通过context对象获取ServletContext,进一步获取路径；</p>
-<p>常用的获取各种路径的方式：<br>  一、用Jsp获取<br> 1、获取文件的绝对路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String file=&quot;文件&quot;;（例如：data.mdb）</span><br><span class="line">String path=application.getRealPath(file);</span><br></pre></td></tr></table></figure>
-<p>结果：<br>E:\java_web\workspace.metadata.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myWebsite\文件<br>2、获取文件的绝对路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String p2=request.getRequestURI();</span><br></pre></td></tr></table></figure>
-<p>结果：<br>E:\java_web\workspace.metadata.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myWebsite\文件<br>3、获取当前jsp页面的路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String p3=request.getContextPath();</span><br></pre></td></tr></table></figure>
-<p>结果：<br>/myWebsite/index.jsp</p>
-<p>4、获取当前项目的路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String p4=request.getServletPath();</span><br></pre></td></tr></table></figure>
-<p>结果：<br>/myWebsite</p>
-<p>二、用Java类获取<br>1、获取Eclipse路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String a1=System.getProperty(&quot;user.dir&quot;);</span><br></pre></td></tr></table></figure>
-<p>结果：<br>D:\StudySystem\JavaWeb\3-eclipse-jee-indigo-win32\eclipse</p>
-<p>2、获取当前的classpath路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String a2=类名.class.getResource(&quot;&quot;).toString();</span><br><span class="line">String a3=DBConnection.class.getResource(&quot;/&quot;).toString();</span><br><span class="line">String a4=DBConnection.class.getClassLoader().getResource(&quot;&quot;).toString();</span><br><span class="line">String t=Thread.currentThread().getContextClassLoader().getResource(&quot;&quot;).getPath();</span><br></pre></td></tr></table></figure>
-<p>打印出来分别是：<br>file:/E:/java_web/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/myWebsite/WEB-INF/classes/com/site/db/<br>file:/E:/java_web/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/myWebsite/WEB-INF/classes/<br>file:/E:/java_web/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/myWebsite/WEB-INF/classes/<br>/E:/java_web/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/myWebsite/WEB-INF/classes/</p>
-<p>3、获取文件的绝对路径<br>如果要获取WebContent目录下的文件绝对路径怎么办？可以用下面的方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String t=Thread.currentThread().getContextClassLoader().getResource(&quot;&quot;).getPath(); </span><br><span class="line"> int num=t.indexOf(&quot;.metadata&quot;);</span><br><span class="line"> String path=t.substring(1,num).replace(&apos;/&apos;, &apos;\\&apos;)+&quot;项目名\\WebContent\\文件&quot;;</span><br></pre></td></tr></table></figure>
-<p>结果是：<br>E:\java_web\workspace\项目名\WebContent\文件</p>
-<p>三、用servlet获取</p>
-<p>1、获取项目的绝对路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getSession().getServletContext().getRealPath(&quot;&quot;)</span><br></pre></td></tr></table></figure>
-<p>结果：<br>E:\java_web\workspace.metadata.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myWebsite</p>
-<p>2、获取浏览器地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getRequestURL()</span><br></pre></td></tr></table></figure>
-<p>结果：<br><a href="http://localhost:8080/myWebsite/QuestionServlet" target="_blank" rel="noopener">http://localhost:8080/myWebsite/QuestionServlet</a></p>
-<p>3、获取当前文件的绝对路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">request.getSession().getServletContext().getRealPath(request.getRequestURI())</span><br></pre></td></tr></table></figure>
-<p>结果：<br>E:\java_web\workspace.metadata.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\myWebsite\myWebsite\QuestionServlet</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/spring/spring中获取项目根路径/" data-id="cjtchv22d0005cwvzuzqmu29u" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-python/函数/装饰器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/python/函数/装饰器/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.819Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>函数可以进行增强，在代码运行期间动态增加功能的方式，称之为“装饰器”（Decorator）。：<br>　　1. 函数对象有一个<strong>name</strong>属性，可以拿到函数的名字<br>　　2. 函数也是一个对象，而且函数对象可以被赋值给变量，所以，通过变量也能调用该函数。  </p>
-<p>eg:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">        print(<span class="string">'call %s():'</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br></pre></td></tr></table></figure></p>
-<p>wrapper()函数的参数定义是(*args, **kw)，因此，wrapper()函数可以接受任意参数的调用。<br>在wrapper()函数内，首先打印日志，再紧接着调用原始函数。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@log</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">now</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'2015-3-25'</span>)</span><br></pre></td></tr></table></figure></p>
-<p>运行 now() 即会进行增强，打印日志</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">            print(<span class="string">'%s %s():'</span> % (text, func.__name__))</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br></pre></td></tr></table></figure>
-<p>再嵌套一层，可以再@log(‘aaaa’)传入参数，进行修饰； </p>
-<p>demo:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">    @functools.wraps(func)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">        print(<span class="string">'call %s():'</span> % func.__name__)</span><br><span class="line">        <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"><span class="comment"># 或者针对带参数的decorator：</span></span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kw)</span>:</span></span><br><span class="line">            print(<span class="string">'%s %s():'</span> % (text, func.__name__))</span><br><span class="line">            <span class="keyword">return</span> func(*args, **kw)</span><br><span class="line">        <span class="keyword">return</span> wrapper</span><br><span class="line">    <span class="keyword">return</span> decorator</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/python/函数/装饰器/" data-id="cjtchv22m0009cwvzz7vawc0k" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-python/函数/偏函数" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/python/函数/偏函数/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.817Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>functools.partial</em> 能够帮助创建一个偏函数；</p>
-<p>eg:</p>
-<blockquote>
-<p>int()函数可以把字符串转换为整数，当仅传入字符串时，int()函数默认按十进制转换;<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;    &gt;&gt;&gt;int(<span class="string">'12345'</span>)</span><br><span class="line">&gt;    <span class="number">12345</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<blockquote>
-<blockquote>
-<p>int()函数还提供额外的base参数，默认值为10。如果传入base参数，就可以做N进制的转换<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;    &gt;&gt;&gt;int(<span class="string">'12345'</span>, base=<span class="number">8</span>)</span><br><span class="line">&gt;&gt;    <span class="number">5349</span></span><br><span class="line">&gt;&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-</blockquote>
-<p>可通过 <em>functools.partial</em> 来定义一个偏函数，固定函数的某一参数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> functools</span><br><span class="line">int2 = functools.partial(int, base=<span class="number">2</span>)</span><br><span class="line">int2(<span class="string">'1000000'</span>) <span class="comment">#64</span></span><br></pre></td></tr></table></figure></p>
-<p>创建偏函数时，实际上可以接收函数对象、*args和<strong>kw这3个参数，当传入：<br>　　int2 = functools.partial(int, base=2)<br>实际上固定了int()函数的关键字参数base，也就是：<br>　　int2(‘10010’)<br>相当于：<br>　　kw = { ‘base’: 2 }<br>　　int(‘10010’, </strong>kw)  </p>
-<p>当传入：<br>　　max2 = functools.partial(max, 10)<br>实际上会把10作为<em>args的一部分自动加到左边，也就是：<br>　　max2(5, 6, 7)<br>相当于：<br>　　args = (10, 5, 6, 7)<br>　　max(</em>args)<br>结果为10。  </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/python/函数/偏函数/" data-id="cjtchv22l0008cwvzudvzudln" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-python/readme" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/python/readme/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.814Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="千里之行，始于足下"><a href="#千里之行，始于足下" class="headerlink" title="千里之行，始于足下"></a>千里之行，始于足下</h1>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/python/readme/" data-id="cjtchv22c0004cwvzgg1j3pwz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-linux/Ubuntu中创建idea快捷方式" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/linux/Ubuntu中创建idea快捷方式/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.809Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li>桌面打开终端；</li>
-<li>进入快捷方式管理目录： <code>cd /usr/share/applications/</code></li>
-<li>创建idea快捷文件: <code>vi intellij-idea.desktop</code> <br><br>(此处可以直接:<code>wq</code>保存退出，然后使用<code>geditintellij-idea.desktop</code>去手写文件)</li>
-<li><p>文件内容如下： </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Name=IntelliJ IDEA</span><br><span class="line">Exec=/home/xring/Tools/idea-IU-141.1532.4/bin/idea.sh</span><br><span class="line">Comment=IntelliJ IDEA</span><br><span class="line">Icon=/home/xring/Tools/idea-IU-141.1532.4/bin/idea.png</span><br><span class="line">Type=Application</span><br><span class="line">Terminal=false</span><br><span class="line">Encoding=UTF-8</span><br></pre></td></tr></table></figure>
-<p> Exec:值为执行的sh文件<br> Icon:设置图标样式</p>
-</li>
-<li><p>保存后，执行 </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /usr/share/applications/intellij-idea.desktop</span><br></pre></td></tr></table></figure>
-<p>则会生成快捷方式，在全部应用中即可看到idea的快捷方式</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/linux/Ubuntu中创建idea快捷方式/" data-id="cjtchv22a0002cwvzpmxo2m50" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-linux/Ubuntu 18.04版本设置root账户并自动登录" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/linux/Ubuntu 18.04版本设置root账户并自动登录/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.808Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>Linux系统下文件的权限十分重要，大多数操作都需要一定的权限才可以操作，<br><br>Ubuntu18.04默认安装是没有设置root账户的，因此想要获得root账户登录可以使用以下步骤：</p>
-</blockquote>
-<ol>
-<li><p>首先获得临时的root权限，因为后面的一些操作需要root权限才可以，打开终端输入以下命令:</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -s</span><br></pre></td></tr></table></figure>
-<p> 之后直接输入当前账户的密码，就可以获得临时的root权限 <br></p>
-</li>
-<li><p>先创建root账户：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd root</span><br></pre></td></tr></table></figure>
-<p> 根据提示输入密码（此时输入的密码是以后登录root账户时的密码）</p>
-</li>
-<li><p>修改配置文件，<br> 文件路径<br><code>/usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</code><br><br>可以使用vim修改，也可以用文档编辑器修改，此处我使用文档编辑器修改</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit /usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf</span><br></pre></td></tr></table></figure>
-<p> （对普通文件进行编辑一定要先获得root权限）<br> 打开后，在文档末尾输入</p>
-</li>
-<li><p>去除gdm登陆用户名检测：<br><br>  修改<code>/etc/pam.d/gdm-autologin</code>文件</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit /etc/pam.d/gdm-autologin</span><br></pre></td></tr></table></figure>
-<p> 删除 或注释掉以下语句</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auth required pam_succeed_if.so user != root quiet_success</span><br></pre></td></tr></table></figure>
-<p> 修改 /etc/pam.d/gdm-password 文件</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit /etc/pam.d/gdm-password</span><br></pre></td></tr></table></figure>
-<p> 同样删除 或注释掉上面的语句</p>
-</li>
-<li><p>修改/root/.profile文件</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit /root/.profile</span><br></pre></td></tr></table></figure>
-<p> 文档最后一行 <code>mesg n || true</code> 前添加  <code>tty -s &amp;&amp;</code> 即 <code>tty -s &amp;&amp;mesg n || true</code></p>
-</li>
-<li><p>设置root用户自动登录 <br><br> a. 打开自定义配置文件 <code>/etc/gdm3/custom.conf</code>-&gt; <code>gedit /etc/gdm3/custom.conf</code> <br><br> b. 在文件中新增如下内容：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[daemon]</span><br><span class="line">AutomaticLoginEnable=True</span><br><span class="line">AutomaticLogin=root</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重启系统，终端界面输入 #reboot<br> 重启完成后，自动登录root;</p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/linux/Ubuntu 18.04版本设置root账户并自动登录/" data-id="cjtchv22b0003cwvzhycungoa" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-linux/Linux常用命令汇总" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/linux/Linux常用命令汇总/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.806Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>@[toc]</p>
-<h3 id="Ubuntu-APT操作"><a href="#Ubuntu-APT操作" class="headerlink" title="Ubuntu APT操作"></a>Ubuntu APT操作</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update  	检查更新</span><br><span class="line">sudo apt upgrade 软件包名	更新指定软件</span><br><span class="line">sudo apt update &amp;&amp; sudo apt -y upgrade  更新环境所有软件到最新版本</span><br></pre></td></tr></table></figure>
-<h3 id="docker命令"><a href="#docker命令" class="headerlink" title="docker命令"></a>docker命令</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker ps |grep 服务名		查看docker详情</span><br><span class="line">docker exec -it dockerId /bin/sh  	进入docker容器</span><br></pre></td></tr></table></figure>
-<h3 id="查找命令"><a href="#查找命令" class="headerlink" title="查找命令"></a>查找命令</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find rootpath -name filename</span><br><span class="line">rootpath: 查找根路径</span><br><span class="line">filename: 查找文件名</span><br></pre></td></tr></table></figure>
-<h3 id="远程传送文件："><a href="#远程传送文件：" class="headerlink" title="远程传送文件："></a>远程传送文件：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp xxx.zip root@<span class="number">10.74</span>.165.114:/usr/local/src</span><br></pre></td></tr></table></figure>
-<p>远程服务器用户：root ip：10.74.165.114：后面的传递文件保存路径</p>
-<h3 id="解压zip文件："><a href="#解压zip文件：" class="headerlink" title="解压zip文件："></a>解压zip文件：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip xxx.zip -d aaa</span><br></pre></td></tr></table></figure>
-<pre><code>解压xxx.zip文件置于当前路径下的aaa文件夹下；
-vi xxx ---- 打开文件，并可以对文件进行修改
-vi 打开一个不存在的文件a时，在没有输入保存命令时，a文件是不会存储到机器磁盘上的。
-vi打开一个文件时，进入的是阅读模式，只有输入相关命令才会进入编辑模式：
-        i :在当前位置插入
-        a:在当前位置后追加
-        o:在当前位置的后面插入一行
-        I :在行头插入
-        A:在行尾追加
-        O:在当前位置的前面插入一行
-        &apos;ESC&apos;键从编辑模式转换到阅读模式
-        阅读模式（或叫命令模式）下：
-            :w 保存文件
-            :w filename 保存成filename文件
-            :q 退出
-            :q! 强行退出
-            :w! 强行写
-            :wq 保存退出
-            :x     同wq
-</code></pre><h3 id="修改文件"><a href="#修改文件" class="headerlink" title="修改文件"></a>修改文件</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo “aaa” &gt; xxx   --- 覆盖的方式将 aaa 写入到xxx文件中</span><br><span class="line">echo “aaa” &gt;&gt; xxx  --- 将aaa追加到xxx文件中</span><br><span class="line">cat x.txt &gt;&gt; b.txt --- 将x.txt中的内容追加到b.txt中</span><br></pre></td></tr></table></figure>
-<h3 id="sh文件的运行："><a href="#sh文件的运行：" class="headerlink" title="sh文件的运行："></a>sh文件的运行：</h3><pre><code>如果对文件没有执行权限 ，获取执行权限的方式：
-    chmod +x a.sh
-运行sh文件的方式：
-    方式1：进入sh文件所在路径-----：./xxx.sh
-    方式2：进入sh文件所在路径-----：shxxx.sh
-注：绝对路径也是可以的，不用进入对应的文件路径。
-</code></pre><h3 id="查看并操作线程"><a href="#查看并操作线程" class="headerlink" title="查看并操作线程"></a>查看并操作线程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">以tomcat为例:</span><br><span class="line">bin/startup.sh #启动tomcat</span><br><span class="line">bin/shutdown.sh #停止tomcat</span><br><span class="line">tail -f logs/catalina.out #看tomcat的控制台输出；</span><br><span class="line">#看是否已经有tomcat在运行了</span><br><span class="line">ps -ef |grep tomcat  #获取正在运行的tomcat的进程号</span><br><span class="line">#如果有，用kill;</span><br><span class="line">kill pid</span><br><span class="line">如果删除不掉,加 -9 强制删除</span><br><span class="line">kill -9 pid #pid 为相应的进程号</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/linux/Linux常用命令汇总/" data-id="cjtchv2280001cwvz1i58kxgi" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-db/postgresql/postgresql安装配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/db/postgresql/postgresql安装配置/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.802Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="postgresql安装配置"><a href="#postgresql安装配置" class="headerlink" title="postgresql安装配置"></a>postgresql安装配置</h1><blockquote>
-<p>设置可远程访问:参见：<a href="https://my.oschina.net/liuyuanyuangogo/blog/497239" target="_blank" rel="noopener">参考链接</a></p>
-</blockquote>
-<p><strong>A. 配置文件设置</strong></p>
-<ol>
-<li><p>修改data中的<code>postgresql.conf</code>文件</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses = &apos;*&apos;      # 监听所有IP</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改data中的<code>pg_hba.conf</code>文件<br></p>
-<p> | 连接类型 | 数据库 | 用户 | 可访问IP | 验证方法 |<br> |—|—|—|—|—|<br> | host | all |all|0.0.0.0/0|md5|<br> | host | all |all|::/0|md5|</p>
-<blockquote>
-<p>IP小知识：<br><br>   172.20.143.89/32 ————- 表示一个主机，<br><br>   172.20.143.0/24  ————— 表示一个小子网（172.20.143.0-172.20.143.255），<br><br>   10.6.0.0/16 ——————– 表示一个大子网(10.6.0.0-10.6.255.255)。<br><br>   0.0.0.0/0 ———————- 代表所有IPv4地址，<br><br>   ::/0 ————————— 代表所有IPv6地址。<br><br>声明单个主机，给 IPv4 地址声明 CIDR 掩码 32 ，给 IPv6 地址声明 128 。 不要在地址中省略结尾的 0 。<br><br>   ident —— 是Linux下PostgreSQL默认的local认证方式，能正确登录环境就能免密使用数据库；<br><br>   md5 ——- 密码是以md5形式传送给数据库，较安全，且不需建立同名的操作系统用户；<br><br>   password – 是以明文密码传送给数据库，建议不要在生产环境中使用；<br><br>   trust ——— 是只要知道数据库用户名就不需要密码或ident就能登录；<br><br>   reject ——– 是拒绝认证。</p>
-</blockquote>
-</li>
-</ol>
-<p><strong>B. linux默认安装下各个路径</strong></p>
-<blockquote>
-<p>参见: <a href="https://www.cnblogs.com/zhangpengshou/p/5464610.html" target="_blank" rel="noopener">参考链接</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/postgresql/9.4/main/postgresql.conf</span><br><span class="line">/etc/postgresql/9.4/main/pg_hba.conf</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<p><br></p>
-<p><strong>C. psql常用命令</strong></p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sudo -u postgres psql</td>
-<td>跨用户登录数据库</td>
-</tr>
-<tr>
-<td>psql -U postgres -h 127.0.0.1</td>
-<td>postgres用户登录数据库，远程登录方式</td>
-</tr>
-<tr>
-<td>show server_version;</td>
-<td>查看pg版本</td>
-</tr>
-</tbody>
-</table>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/db/postgresql/postgresql安装配置/" data-id="cjtchv22k0007cwvzydrohujd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-db/oracle/常见oracle问题及解决方案" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-db/oracle/常见oracle问题及解决方案" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/17/db/oracle/常见oracle问题及解决方案/" class="article-date">
   <time datetime="2019-03-17T05:43:02.798Z" itemprop="datePublished">2019-03-17</time>
@@ -480,57 +96,28 @@ vi打开一个文件时，进入的是阅读模式，只有输入相关命令才
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-db/oracle/oracle的删除" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/17/db/oracle/oracle的删除/" class="article-date">
-  <time datetime="2019-03-17T05:43:02.795Z" itemprop="datePublished">2019-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Windows 平台  </p>
-<blockquote>
-<p>其实这篇文章我主要想就在Windows平台上如何彻底的卸载Oracle进行说明。  <br><br>因为oracle在Windows下的卸载颇有一些麻烦，如果不能完全卸载有可能影响将来的再次安装！<br><br>常规卸载方法是运行Oracle的自带的卸载程序，可遗憾的是我在卸载时总不能完全卸载，当我再次安装Oracle时，就会出现莫名其妙的问题，并且这种卸载方式比较麻烦，比较慢，下面我介绍一种比较快并且能够彻底卸载Oracle的方法。</p>
-</blockquote>
-<p>1.关闭oracle所有的服务。可以在windows的服务管理器中关闭； </p>
-<p>2.打开注册表：<code>regedit</code> 打开路径：<br><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\</code><br>删除该路径下的所有以oracle开始的服务名称，这个键是标识Oracle在windows下注册的各种服务！</p>
-<p>3.打开注册表，找到路径： <code></code>HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE`<br>删除该oracle目录，该目录下注册着Oracle数据库的软件安装信息。</p>
-<p>4.删除注册的oracle事件日志，打开注册表<br><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application</code><br>删除注册表的以oracle开头的所有项目。</p>
-<p>5.删除环境变量path中关于oracle的内容。<br>鼠标右键右单击“我的电脑属性高级环境变量PATH 变量。<br>删除Oracle在该值中的内容。注意:path中记录着一堆操作系统的目录，在windows中各个目录之间使用分号（; ）隔开的，删除时注意。    </p>
-<p>建议：删除PATH环境变量中关于Oracle的值时，将该值全部拷贝到文本器中，找到对应的Oracle的值，删除后，再拷贝修改的串，粘贴到PATH环境变量中，这样相对而言比较安全。   </p>
-<p> 6.重新启动操作系统。  </p>
-<p>以上1~5个步骤操作完毕后，重新启动操作系统。    </p>
-<p>7.重启操作系统后各种Oracle相关的进程都不会加载了。<br>这时删除Oracle_Home下的所有数据。（Oracle_Home指Oracle程序的安装目录）   </p>
-<p>8.删除C:\Program Files下oracle目录。   （该目录视Oracle安装所在路径而定）  </p>
-<p> 9.删除开始菜单下oracle项，<br>如：  C:\Documents and Settings\All Users\「开始」菜单\程序\Oracle - Ora10g</p>
+    <a href="/2019/03/17/db/postgresql/postgresql安装配置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/17/db/oracle/oracle的删除/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/db/oracle/oracle的删除/" data-id="cjtchv22j0006cwvz1hg20w4g" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
 
 </section>
         

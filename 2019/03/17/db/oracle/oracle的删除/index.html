@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Windows 平台    其实这篇文章我主要想就在Windows平台上如何彻底的卸载Oracle进行说明。  因为oracle在Windows下的卸载颇有一些麻烦，如果不能完全卸载有可能影响将来的再次安装！常规卸载方法是运行Oracle的自带的卸载程序，可遗憾的是我在卸载时总不能完全卸载，当我再次安装Oracle时，就会出现莫名其妙的问题，并且这种卸载方式比较麻烦，比较慢，下面我介绍一种比较快并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2019/03/17/db/oracle/oracle的删除/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Windows 平台    其实这篇文章我主要想就在Windows平台上如何彻底的卸载Oracle进行说明。  因为oracle在Windows下的卸载颇有一些麻烦，如果不能完全卸载有可能影响将来的再次安装！常规卸载方法是运行Oracle的自带的卸载程序，可遗憾的是我在卸载时总不能完全卸载，当我再次安装Oracle时，就会出现莫名其妙的问题，并且这种卸载方式比较麻烦，比较慢，下面我介绍一种比较快并">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-17T04:22:06.927Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="Windows 平台    其实这篇文章我主要想就在Windows平台上如何彻底的卸载Oracle进行说明。  因为oracle在Windows下的卸载颇有一些麻烦，如果不能完全卸载有可能影响将来的再次安装！常规卸载方法是运行Oracle的自带的卸载程序，可遗憾的是我在卸载时总不能完全卸载，当我再次安装Oracle时，就会出现莫名其妙的问题，并且这种卸载方式比较麻烦，比较慢，下面我介绍一种比较快并">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-db/oracle/oracle的删除" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/db/oracle/oracle的删除/" class="article-date">
+  <time datetime="2019-03-17T05:43:02.795Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Windows 平台  </p>
+<blockquote>
+<p>其实这篇文章我主要想就在Windows平台上如何彻底的卸载Oracle进行说明。  <br><br>因为oracle在Windows下的卸载颇有一些麻烦，如果不能完全卸载有可能影响将来的再次安装！<br><br>常规卸载方法是运行Oracle的自带的卸载程序，可遗憾的是我在卸载时总不能完全卸载，当我再次安装Oracle时，就会出现莫名其妙的问题，并且这种卸载方式比较麻烦，比较慢，下面我介绍一种比较快并且能够彻底卸载Oracle的方法。</p>
+</blockquote>
+<p>1.关闭oracle所有的服务。可以在windows的服务管理器中关闭； </p>
+<p>2.打开注册表：<code>regedit</code> 打开路径：<br><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\</code><br>删除该路径下的所有以oracle开始的服务名称，这个键是标识Oracle在windows下注册的各种服务！</p>
+<p>3.打开注册表，找到路径： <code></code>HKEY_LOCAL_MACHINE\SOFTWARE\ORACLE`<br>删除该oracle目录，该目录下注册着Oracle数据库的软件安装信息。</p>
+<p>4.删除注册的oracle事件日志，打开注册表<br><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Eventlog\Application</code><br>删除注册表的以oracle开头的所有项目。</p>
+<p>5.删除环境变量path中关于oracle的内容。<br>鼠标右键右单击“我的电脑属性高级环境变量PATH 变量。<br>删除Oracle在该值中的内容。注意:path中记录着一堆操作系统的目录，在windows中各个目录之间使用分号（; ）隔开的，删除时注意。    </p>
+<p>建议：删除PATH环境变量中关于Oracle的值时，将该值全部拷贝到文本器中，找到对应的Oracle的值，删除后，再拷贝修改的串，粘贴到PATH环境变量中，这样相对而言比较安全。   </p>
+<p> 6.重新启动操作系统。  </p>
+<p>以上1~5个步骤操作完毕后，重新启动操作系统。    </p>
+<p>7.重启操作系统后各种Oracle相关的进程都不会加载了。<br>这时删除Oracle_Home下的所有数据。（Oracle_Home指Oracle程序的安装目录）   </p>
+<p>8.删除C:\Program Files下oracle目录。   （该目录视Oracle安装所在路径而定）  </p>
+<p> 9.删除开始菜单下oracle项，<br>如：  C:\Documents and Settings\All Users\「开始」菜单\程序\Oracle - Ora10g</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/db/oracle/oracle的删除/" data-id="cjtchv22j0006cwvz1hg20w4g" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/17/db/oracle/常见oracle问题及解决方案/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/17/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/17/spring/spring中获取项目根路径/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/函数/装饰器/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/函数/偏函数/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/python/readme/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/linux/Ubuntu中创建idea快捷方式/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
