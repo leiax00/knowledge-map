@@ -4,18 +4,18 @@
 
 # Site
 title: 且随风吟
-subtitle: '御剑于心'
-description: '大招不停，永远荣耀'
+subtitle: 御剑于心
+description: 大招不停，永远荣耀
 keywords:
 author: Lei.Aox
 language: zh-CN
-timezone: 'Asia/Shanghai'
+timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://blog.leiax00.cn
 root: /
-permalink: :year:month:day-:hash/
+permalink: :year-:month-:day-:hash/
 permalink_defaults:
 pretty_urls:
   trailing_index: false # Set to false to remove trailing 'index.html' from permalinks
@@ -103,4 +103,7 @@ theme: amazing
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: ''
+  type: git
+  repo: '' #https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io
+  branch: master
+  message: update information
