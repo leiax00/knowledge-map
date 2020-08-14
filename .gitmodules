@@ -3,4 +3,4 @@
 	url = https://github.com/hexojs/hexo-theme-landscape.git
 [submodule "themes/amazing"]
 	path = themes/amazing
-	url = https://gitee.com/jctecho/hexo-theme-amazing.git
+	url = https://github.com/leiax00/hexo-theme-amazing.git
